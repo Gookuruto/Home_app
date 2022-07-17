@@ -3,6 +3,7 @@ using System;
 using Bill_api.Database.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NodaTime;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -12,9 +13,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bill_api.Migrations
 {
     [DbContext(typeof(BillContext))]
-    partial class BillContextModelSnapshot : ModelSnapshot
+    [Migration("20220716123901_AddProviderToBill")]
+    partial class AddProviderToBill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +27,11 @@ namespace Bill_api.Migrations
 
             modelBuilder.Entity("Bill_api.Database.Models.Bill", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BillId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BillId"));
 
                     b.Property<float?>("Amount")
                         .HasColumnType("real");
@@ -37,13 +39,13 @@ namespace Bill_api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<LocalDate?>("PayDate")
+                    b.Property<DateOnly?>("PayDate")
                         .HasColumnType("date");
 
                     b.Property<int>("ProviderId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.HasKey("BillId");
 
                     b.HasIndex("ProviderId");
 
@@ -58,11 +60,11 @@ namespace Bill_api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<LocalDate>("FirstPayment")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("FirstPayment")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PaymentDays")
-                        .HasColumnType("integer");
+                    b.Property<Duration>("PaymentPeriod")
+                        .HasColumnType("interval");
 
                     b.Property<string>("ProviderName")
                         .IsRequired()
