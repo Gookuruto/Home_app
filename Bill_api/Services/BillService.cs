@@ -18,9 +18,9 @@ namespace Bill_api.Services
             _billDTO = billDTO;
         }
 
-        public async Task<List<string>> GetBills()
+        public async Task<IEnumerable<Bill>> GetBills()
         {
-            return new List<string>() { "1", "2", "3" };
+            return await _billDTO.GetBills();
         }
 
         public async Task AddProvider(BillProvider provider)

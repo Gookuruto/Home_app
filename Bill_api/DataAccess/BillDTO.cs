@@ -12,11 +12,17 @@ namespace Bill_api.DataAccess
 {
     public class BillDTO
     {
+        //TODO create repository interface for bills DTO to make mocks 
         private BillContext _billDB;
 
         public BillDTO(BillContext billDB)
         {
             _billDB = billDB;
+        }
+
+        public async Task<IEnumerable<Bill>> GetBills()
+        {
+            return await _billDB.Bills!.ToListAsync();
         }
 
         public async Task AddBillProvider(BillProvider billProvider)

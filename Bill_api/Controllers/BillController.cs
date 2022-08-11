@@ -16,7 +16,7 @@ namespace Bill_api.Controllers
         }
         [HttpGet]
         [Route("api/bills")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<string>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Bill>))]
         public async Task<IActionResult> GetBills()
         {
             var result = await _billService.GetBills();

@@ -1,12 +1,6 @@
 ﻿using Bill_api.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bill_api.Database.Contexts
 {
@@ -26,9 +20,14 @@ namespace Bill_api.Database.Contexts
                 o => o.UseNodaTime());
         }
 
-        protected override void OnModelCreating(ModelBuilder modWelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Create fluent api for all models usabe from this context.
+            modelBuilder.Entity<Bill>().Property(s => s.Id)
+                .HasColumnName("Id")
+                .HasDefaultValue(0)
+                .IsRequired();
+
         }
     }
 }
